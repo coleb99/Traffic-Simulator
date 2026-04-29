@@ -34,9 +34,9 @@ python main.py
 
 ## Examples
 
-![Screenshot of program after reaching near equilibrium with default settings](examples/example2)
+![Screenshot of program after reaching near equilibrium with default settings](Examples/example2)
 
-![Screenshot of program after adjusting the express lane price and removing several cars](examples/example3)
+![Screenshot of program after adjusting the express lane price and removing several cars](Examples/example3)
 
 
 ## Usage
