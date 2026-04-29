@@ -35,8 +35,10 @@ python main.py
 ## Examples
 
 ![Screenshot of program after reaching near equilibrium with default settings](Examples/example2.png)
+-Screenshot of program after reaching near equilibrium with default setting
 
 ![Screenshot of program after adjusting the express lane price and removing several cars](Examples/example3.png)
+-Screenshot of program after adjusting the express lane price and removing several cars
 
 
 ## Usage
