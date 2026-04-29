@@ -76,9 +76,13 @@ Screenshot of program after adjusting the express lane price and removing severa
 ## Project Structure
 
 ```main.py```
+
 ```config.py``` - handles configuration file
+
 ```simulcirlce.py``` - handles simulation machinery
+
 ```animation.py``` - retrieves graphing data and updates frames
+
 ```widgets.py``` - handles widget operations
 
 ## Configuration
