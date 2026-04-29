@@ -1,0 +1,35 @@
+{
+"constants": {
+	"express_price": [0.25, "$/km", "initial express lane price"],
+	"revenue_stream_memory": [30, "sec", "memory to calculate revenue"],
+	"n_lanes": [3, "lanes", "number of lanes"]
+	},
+"sim_state_attributes": {
+	"n_cars": [40, "cars", "number of cars"]
+	},
+"lane_attributes": {
+	"length": [500, "meters", "length of track"]
+	},
+"car_attributes": {
+	"max_acc": [3, "m/s^2", "maximum acceleration per car"],
+	"max_brake": [8, "m/s^2", "maximum braking per car"],
+	"delay": [0.1, "sec", "reaction time per car"],
+	"vmax": [30, "m/s", "maximum speed per car"],
+	"k1": [0.5,  "", "elasticity of movement constant"],
+	"k2": [2, "", "dampening of speed changes"],
+	"min_gap": [3, "meters", "minimum gap between cars"],
+	"time_headway": [1.5, "seconds", "ideal time to get to next car position"],
+	"switch_consider_time": [5, "seconds", "time on average to consider switch"],
+	"switch_cost_base": [0, "sec/meter", "base cost to make any lane change"],
+	"switch_cooldown": [1, "sec", "cooldown time before next possible switch"],
+	"look_ahead_time": [5, "sec", "for scanning road to estimate speeds"],
+	"min_look_ahead_distance": [10, "meters", "minimum look ahead distance"]
+	},
+"car_time_value_dist":{
+	"car_types": [[0,0.002,0.005,0.015],"$/sec", "amount willing to pay to save time"],
+	"weights": [[0.1,0.4,0.4,0.1],"","weights for new seeded cars"],
+	"random_on":[1,"","whether cars are seeded randomly"]
+	}
+	
+}
+
