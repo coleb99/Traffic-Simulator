@@ -32,7 +32,7 @@ python main.py
 
 -Adjust the price of the express lane or the number of cars on the road and observe changes to flow state.
 
-##Examples
+## Examples
 
 ![Screenshot of program after reaching near equilibrium with default settings](examples/example2)
 
