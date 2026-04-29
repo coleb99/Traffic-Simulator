@@ -13,7 +13,7 @@ This application simulates a collection of cars on a road with a flexibly-priced
 ```bash
 git clone https://github.com/coleb99/Traffic-Simulator
 cd Traffic-Simulator
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 ### Run 
