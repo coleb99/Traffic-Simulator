@@ -8,6 +8,7 @@ import config as con
 import simulcircle as sim 
 import widgets as wid
 import animation as ani
+import optimization as opt
 
 import matplotlib.pyplot as plt #for graphing
 from matplotlib.animation import FuncAnimation #for doing the animation
@@ -18,7 +19,9 @@ class SimState: #keeps track of a number of mutable simulation characteristics
     def __init__(self,config):
         con.apply_config(self,config)
         self.car_counter = self.n_cars
-        
+        self.reset = True #initialize as true to get first value
+        self.exp_rev=0
+        self.exp_speed=0
 
 def main():
     #config
@@ -59,17 +62,21 @@ def main():
     
     #widgets
     #express_lane_price
-    ax_slider = plt.axes([0.26, 0.9, 0.6, 0.03])
+    ax_slider = plt.axes([0.16, 0.9, 0.6, 0.03])
     slider = Slider(ax_slider, 'Express Price ($/km)', 0.0, 1.0, valinit=express_lane.price*1000)
-    slider.on_changed(wid.make_update_price(express_lane, slider))
+    slider.on_changed(wid.make_update_price(state,express_lane, slider))
     #add car button
     ax_add = plt.axes([0.30, 0.03, 0.15, 0.07])
     btn_add = Button(ax_add, "Add Car")
-    btn_add.on_clicked(lambda event: wid.spawn_car_request(event, pending_actions))
+    btn_add.on_clicked(lambda event: wid.spawn_car_request(event, state,pending_actions))
     #remove car button
     ax_remove = plt.axes([0.55, 0.03, 0.15, 0.07])
     btn_remove = Button(ax_remove, "Remove Car")
-    btn_remove.on_clicked(lambda event: wid.remove_car_request(event, pending_actions))
+    btn_remove.on_clicked(lambda event: wid.remove_car_request(event, state, pending_actions))
+    #optimize button
+    ax_optimize = plt.axes([0.86,.9,0.1,0.07])
+    btn_optimize = Button(ax_optimize, "Optimize Rev")
+    btn_optimize.on_clicked(lambda event: wid.optimize_button(event,slider,spawn_cfg,len(lanes),state.n_cars,1,.05))
     
     #initialize road with cars
     starting_lane = lanes[0]

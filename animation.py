@@ -5,6 +5,7 @@ Created on Thu Apr 23 10:39:51 2026
 @author: coleb
 """
 import simulcircle as sim
+import optimization as opt
 import widgets as wid
 
 import numpy as np #for finding the average of lists and whatnot
@@ -59,27 +60,25 @@ def animate(frame,scatter,metadata,text,pending_actions,dt):
     # update text every 1 second
     if frame % int(1 / dt) == 0:
         
-        #calculate individual lane speeds
-        speeds,lane_weight = [],[]
-        for lane, txt in zip(lanes, lane_text):
-            v_avg = lane.avg_speed*3.6 #in km/hr
-            speeds.append(v_avg)
-            lane_weight.append(len(lane.cars)/state.n_cars)
+        speeds, avg_speed = sim.get_avg_speed(lanes,state.n_cars)
+        #individual lane text
+        for lane, speed, txt in zip(lanes, speeds, lane_text):
+            v_avg = speed
             price_per_km = lane.price*1000
             txt.set_text(f"{v_avg:.1f} km/hr\n\n${price_per_km:.2f} per km")
-
-        #calculate average speed
-        try:
-            total_avg_speed = np.average(speeds,weights=lane_weight)
-        except ZeroDivisionError:
-            total_avg_speed = 0 
         
         #calculate average revenue
-        total_revenue = express_lane.revenue
+        total_revenue = sim.get_revenue(lanes)
         revenue_stream.append(total_revenue)
         rev_avg = (revenue_stream[-1]-revenue_stream[0])*3600/len(revenue_stream) #120 30-sec segments per hour
-      
-        head_text.set_text(f'total cars:\n{state.n_cars}\n\naverage speed:\n{total_avg_speed:.1f} km/hr\n\nrevenue:\n${rev_avg:.2f}/hr')
+        
+        #expected values
+        if state.reset:
+            exp_speed, exp_rev =opt.exp_val(spawn_cfg,len(lanes),state.n_cars,price = 1000*express_lane.price)
+            state.exp_speed = exp_speed *3.6
+            state.exp_rev = exp_rev *3.6
+            state.reset=False
+        head_text.set_text(f'total cars:\n{state.n_cars}\n\naverage speed:\n{avg_speed:.1f} km/hr\n\nexpected:\n{state.exp_speed:.1f} km/hr\n\nrevenue:\n${rev_avg:.2f}/hr\n\nexpected:\n${state.exp_rev:.2f}/hr')
     
     return (scatter,head_text,*lane_text)
 

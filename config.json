@@ -30,6 +30,5 @@
 	"weights": [[0.1,0.4,0.4,0.1],"","weights for new seeded cars"],
 	"random_on":[1,"","whether cars are seeded randomly"]
 	}
-	
-}
 
+}

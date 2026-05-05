@@ -5,13 +5,15 @@ Created on Mon Apr 27 15:15:08 2026
 @author: coleb
 """
 import simulcircle as sim 
+import optimization as opt
 
 
 import random #for spawning cars
 
-def make_update_price(express_lane, slider):
+def make_update_price(state,express_lane, slider):
     def update(val):
         express_lane.price = val / 1000 #convert from $/km to $/m in the code
+        state.reset=True
     return update
 
 def spawn_attempt(cfg,lanes,state):
@@ -49,11 +51,17 @@ def remove_car(lanes,state):
         lane.cars.remove(car)
         state.n_cars -=1
         
-def spawn_car_request(event,pending_actions):
+def spawn_car_request(event,state,pending_actions):
     pending_actions.append("spawn")
+    state.reset=True
 
-def remove_car_request(event,pending_actions):
+def remove_car_request(event,state,pending_actions):
     pending_actions.append("remove")
+    state.reset=True
+    
+def optimize_button(event,slider,*args):
+    slider.set_val(opt.optimize(*args))
+    
     
 
 

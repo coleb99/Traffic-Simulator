@@ -31,7 +31,40 @@ class Lane:
         self.positions=[]
         self.avg_speed=0
         self.revenue = 0
+
+class Simulation:
+    def __init__(self):
+        self.avg_speed = 0
+        self.revenue = 0
         
+def setup(cfg,lanes,n_cars,express_price):
+    #init sim
+    sim = Simulation()
+    #setup
+    seed_cars(cfg,n_cars,lanes,lanes[0])
+    n_lanes = len(lanes)
+    express_lane = lanes[n_lanes-1]
+    express_lane.price = express_price
+    
+def get_revenue(lanes):
+    n_lanes = len(lanes)
+    express_lane = lanes[n_lanes-1]
+    return express_lane.revenue
+
+def get_avg_speed(lanes,n_cars):
+    #calculate individual lane speeds
+    speeds,lane_weight = [],[]
+    for lane in lanes:
+        v_avg = lane.avg_speed*3.6 #in km/hr
+        speeds.append(v_avg)
+        lane_weight.append(len(lane.cars)/n_cars)
+    #calculate average speed
+    try:
+        total_avg_speed = np.average(speeds,weights=lane_weight)
+    except ZeroDivisionError:
+        total_avg_speed = 0 
+        
+    return speeds, total_avg_speed
 def update(car, next_car, lane, dt):
     if next_car == None:
         car.pos += car.vel * dt
@@ -250,6 +283,7 @@ def time_step(lanes,dt): #everything that happens in a time step
     for lane in lanes:
         lane.cars.sort(key=lambda c: c.pos, reverse=True)
         lane.positions = [car.pos for car in lane.cars]
+    
         
             
     #next, time updates within lanes   
@@ -258,10 +292,9 @@ def time_step(lanes,dt): #everything that happens in a time step
         lane.positions = [car.pos for car in lane.cars]
         #this update always happens at the end of the step so the lanes are ordered in the output
 
-
-
-
-        
+def clear(lanes):#for resetting the sim
+    for lane in lanes:
+        lane.cars=[]
         
     
 
