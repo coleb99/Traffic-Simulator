@@ -32,6 +32,8 @@ python main.py
 
 -Adjust the price of the express lane or the number of cars on the road and observe changes to flow state.
 
+-Compare tracked revenue and average speed gauge values to expected values and optimize for increased revenue.
+
 ## Examples
 
 ![Screenshot of program after reaching near equilibrium with default settings](Examples/example2.png)
@@ -39,6 +41,9 @@ Screenshot of program after reaching near equilibrium with default setting
 
 ![Screenshot of program after adjusting the express lane price and removing several cars](Examples/example3.png)
 Screenshot of program after adjusting the express lane price and removing several cars
+
+![Screenshot of updated program with expected values and optimization structure buttons in place](Examples/example4.png)
+Screenshot of updated program with expected values and optimization structure buttons in place
 
 
 ## Usage
@@ -48,6 +53,8 @@ Screenshot of program after adjusting the express lane price and removing severa
 - Add a car to the simulation with the Add Car button at the bottom of the interface. A new car will spawn at the left end of the first (lowest) lane at the earliest safe time and which will automatically match traffic flow.
 
 - Remove a car from the simulation with the Remove Car button at the bottom of the interface. A random car will be zapped from existence.
+
+- Select the express lane price that optimizes the expected revenue for a certain number of cars on the road by pressing the Optimize Rev button in the top right of the interface.
 
 - Track individual lane average speeds using the gauges on the right side of the interface. Each lane is accompanied by text indicating the price of the lane (in $/km) and the average speed of traffic in that lane.
 
